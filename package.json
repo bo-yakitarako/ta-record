@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.js --external:discord.js"
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:discord.js"
   },
   "devDependencies": {
     "@types/node": "^18.11.7",

@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import { config } from 'dotenv';
+import { add, remove, show, time } from './command';
 
 config();
 
@@ -21,8 +22,21 @@ client.on('messageCreate', async (message) => {
   if (message.author.bot) {
     return;
   }
-  if (message.content === 'ping') {
-    await message.reply('pong');
+  if (message.content.startsWith('!add')) {
+    await add(message);
+    return;
+  }
+  if (message.content.startsWith('!remove')) {
+    await remove(message);
+    return;
+  }
+  if (message.content === '!show') {
+    await show(message);
+    return;
+  }
+  if (message.content.startsWith('!time')) {
+    await time(message);
+    return;
   }
 });
 
