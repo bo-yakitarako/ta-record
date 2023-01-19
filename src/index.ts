@@ -1,6 +1,14 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import { config } from 'dotenv';
-import { add, order, remove, show, time } from './command';
+import {
+  add,
+  order,
+  remove,
+  member,
+  time,
+  showResult,
+  showIndividual,
+} from './command';
 
 config();
 
@@ -30,8 +38,8 @@ client.on('messageCreate', async (message) => {
     await remove(message);
     return;
   }
-  if (message.content === '!show') {
-    await show(message);
+  if (message.content === '!member') {
+    await member(message);
     return;
   }
   if (message.content.startsWith('!time')) {
@@ -40,6 +48,14 @@ client.on('messageCreate', async (message) => {
   }
   if (message.content.startsWith('!order')) {
     await order(message);
+    return;
+  }
+  if (message.content === '!result') {
+    await showResult(message);
+    return;
+  }
+  if (message.content.startsWith('!individual')) {
+    await showIndividual(message);
     return;
   }
 });

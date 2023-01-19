@@ -13,14 +13,15 @@ export type Player = {
   recordTimes: Time[][];
   times: Time[];
   points: number[];
+  totalPoint: number;
 };
 
 const POINTS = [[1], [1, 0], [1.5, 1, 0], [2.5, 1.5, 1, 0], [5, 3, 2, 1, 0]];
 const REPEAT = 2;
 
-export let players: Player[] = [];
+let players: Player[] = [];
 let playerIndex = 0;
-export let orderFlag = false;
+let orderFlag = false;
 loadJSON();
 
 const saveJSON = () => {
@@ -42,6 +43,7 @@ function loadJSON() {
 }
 
 export const forceOrder = () => orderFlag;
+export const getPlayers = () => [...players];
 
 export const setPlayers = (newPlayers: Player[]) => {
   players = newPlayers;
@@ -102,6 +104,7 @@ const assignPoints = () => {
   const points = POINTS[players.length - 1];
   players.forEach((p) => {
     p.points = [];
+    p.totalPoint = 0;
   });
   [...Array(timeLength).keys()].forEach((index) => {
     tmpPlayers.sort((a, b) => {
@@ -111,6 +114,7 @@ const assignPoints = () => {
     });
     tmpPlayers.forEach((player, index) => {
       player.points = [...player.points, points[index]];
+      player.totalPoint += points[index];
     });
   });
 };
