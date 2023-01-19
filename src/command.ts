@@ -1,5 +1,12 @@
 import { Message } from 'discord.js';
-import { addTime, orderPlayers, Player, players, setPlayers } from './player';
+import {
+  addTime,
+  forceOrder,
+  orderPlayers,
+  Player,
+  players,
+  setPlayers,
+} from './player';
 
 const color = 0x7dfcf0;
 
@@ -55,6 +62,10 @@ export const show = async (message: Message) => {
 };
 
 export const time = async (message: Message) => {
+  if (forceOrder()) {
+    await message.reply('ひとまず並び替えようか');
+    return;
+  }
   const timeText = message.content.split(' ')[1] ?? '';
   if (!/^[0-9]+:[0-9]+:[0-9]+$/.test(timeText)) {
     await message.reply('時間わかんないね');

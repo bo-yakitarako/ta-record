@@ -19,11 +19,12 @@ const POINTS = [[1], [3, 1], [3, 1, 0], [4, 2, 1, 0], [6, 4, 2, 1, 0]];
 const REPEAT = 2;
 
 export let players: Player[] = [];
-loadJSON();
 let playerIndex = 0;
+export let orderFlag = false;
+loadJSON();
 
 const saveJSON = () => {
-  const data = { playerIndex, players };
+  const data = { playerIndex, orderFlag, players };
   const json = JSON.stringify(data, null, '\t');
   writeFileSync('./players.json', json);
 };
@@ -34,10 +35,13 @@ function loadJSON() {
     const data = JSON.parse(jsonText);
     players = data.players;
     playerIndex = data.playerIndex;
+    orderFlag = data.orderFlag;
   } catch {
     console.log('プレイやーいない模様');
   }
 }
+
+export const forceOrder = () => orderFlag;
 
 export const setPlayers = (newPlayers: Player[]) => {
   players = newPlayers;
@@ -82,6 +86,7 @@ export const addTime = (time: Time) => {
     player.recordTimes[player.recordTimes.length - 1].length === REPEAT
   ) {
     assignPoints();
+    orderFlag = true;
     next = null;
   }
   saveJSON();
@@ -122,5 +127,6 @@ export const orderPlayers = (ids: string[]) => {
   });
   newPlayers = [...newPlayers, ...playerList];
   players = newPlayers;
+  orderFlag = false;
   saveJSON();
 };
