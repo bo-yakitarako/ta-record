@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { addTime, Player, players, setPlayers } from './player';
+import { addTime, orderPlayers, Player, players, setPlayers } from './player';
 
 const color = 0x7dfcf0;
 
@@ -75,4 +75,24 @@ export const time = async (message: Message) => {
   const nextName = next !== null ? `\n次の人: ${next.name}` : '';
   const description = `${minuteText}:${secondText}:${millisecondWithZero}${nextName}`;
   await message.reply({ embeds: [{ title, description, color }] });
+};
+
+export const order = async (message: Message) => {
+  const orderText = message.content.split(' ').slice(1).join(' ');
+  if (!/^([0-9]+[\s]*)+$/.test(orderText)) {
+    await message.reply('順番わかんないね');
+    return;
+  }
+  const ids = orderText.split(' ');
+  orderPlayers(ids);
+  const fields = players.map((player, index) => {
+    const name = `${index + 1}: ${player.name}`;
+    const value = '';
+    return { name, value };
+  });
+  const title = '並び替えたよ';
+  const description = '次行こうや';
+  await message.channel.send({
+    embeds: [{ title, description, fields, color }],
+  });
 };

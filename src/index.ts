@@ -1,6 +1,6 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import { config } from 'dotenv';
-import { add, remove, show, time } from './command';
+import { add, order, remove, show, time } from './command';
 
 config();
 
@@ -36,6 +36,10 @@ client.on('messageCreate', async (message) => {
   }
   if (message.content.startsWith('!time')) {
     await time(message);
+    return;
+  }
+  if (message.content.startsWith('!order')) {
+    await order(message);
     return;
   }
 });

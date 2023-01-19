@@ -41,6 +41,7 @@ function loadJSON() {
 
 export const setPlayers = (newPlayers: Player[]) => {
   players = newPlayers;
+  saveJSON();
 };
 
 const selectFastestTime = (playerIndex: number) => {
@@ -81,19 +82,10 @@ export const addTime = (time: Time) => {
     player.recordTimes[player.recordTimes.length - 1].length === REPEAT
   ) {
     assignPoints();
-    sortPlayers();
     next = null;
   }
   saveJSON();
   return { player, next };
-};
-
-const sortPlayers = () => {
-  players = [...players].sort((a, b) => {
-    const aPoint = a.points[a.points.length - 1];
-    const bPoint = b.points[b.points.length - 1];
-    return aPoint - bPoint;
-  });
 };
 
 const assignPoints = () => {
@@ -116,4 +108,19 @@ const assignPoints = () => {
       player.points = [...player.points, points[index]];
     });
   });
+};
+
+export const orderPlayers = (ids: string[]) => {
+  let playerList = [...players];
+  let newPlayers = [] as Player[];
+  ids.forEach((id) => {
+    const player = playerList.find((p) => p.discordId === id);
+    if (player) {
+      newPlayers = [...newPlayers, player];
+      playerList = playerList.filter((p) => p.discordId !== id);
+    }
+  });
+  newPlayers = [...newPlayers, ...playerList];
+  players = newPlayers;
+  saveJSON();
 };
