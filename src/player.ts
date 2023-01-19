@@ -17,7 +17,7 @@ export type Player = {
 };
 
 const POINTS = [[1], [1, 0], [1.5, 1, 0], [2.5, 1.5, 1, 0], [5, 3, 2, 1, 0]];
-const REPEAT = 2;
+const REPEAT = 3;
 
 let players: Player[] = [];
 let playerIndex = 0;
