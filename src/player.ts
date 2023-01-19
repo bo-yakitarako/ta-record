@@ -117,6 +117,7 @@ export const assignPoints = () => {
       player.totalPoint += points[index];
     });
   });
+  saveJSON();
 };
 
 export const orderPlayers = (ids: string[]) => {
