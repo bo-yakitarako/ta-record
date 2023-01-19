@@ -15,7 +15,7 @@ export type Player = {
   points: number[];
 };
 
-const POINTS = [[1], [3, 1], [3, 1, 0], [4, 2, 1, 0], [6, 4, 2, 1, 0]];
+const POINTS = [[1], [1, 0], [1.5, 1, 0], [2.5, 1.5, 1, 0], [5, 3, 2, 1, 0]];
 const REPEAT = 2;
 
 export let players: Player[] = [];
@@ -129,4 +129,12 @@ export const orderPlayers = (ids: string[]) => {
   players = newPlayers;
   orderFlag = false;
   saveJSON();
+};
+
+export const timeText = (time: Time) => {
+  const { minute, second, millisecond } = time;
+  const m = minute.toString().padStart(1, '0');
+  const s = second.toString().padStart(2, '0');
+  const ms = millisecond.toString().padStart(3, '0');
+  return `${m}:${s}.${ms}`;
 };
