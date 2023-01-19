@@ -1,6 +1,7 @@
 import { Message } from 'discord.js';
 import {
   addTime,
+  assignPoints,
   forceOrder,
   getPlayers,
   orderPlayers,
@@ -159,4 +160,9 @@ export const showIndividual = async (message: Message) => {
   await message.channel.send({
     embeds: [{ title, description, fields, color }],
   });
+};
+
+export const assign = async (message: Message) => {
+  assignPoints();
+  await message.reply('ポイント割り振ったよ');
 };

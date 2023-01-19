@@ -8,6 +8,7 @@ import {
   time,
   showResult,
   showIndividual,
+  assign,
 } from './command';
 
 config();
@@ -56,6 +57,10 @@ client.on('messageCreate', async (message) => {
   }
   if (message.content.startsWith('!individual')) {
     await showIndividual(message);
+    return;
+  }
+  if (message.content === '!assign') {
+    await assign(message);
     return;
   }
 });

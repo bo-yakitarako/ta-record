@@ -95,7 +95,7 @@ export const addTime = (time: Time) => {
   return { player, next };
 };
 
-const assignPoints = () => {
+export const assignPoints = () => {
   const timeLength = players[0].times.length;
   if (players.some((player) => player.times.length !== timeLength)) {
     return;
